@@ -1,0 +1,11 @@
+.header {
+	height: 12rem;
+	background-color: $orange;
+	padding-top: 1px;
+}
+
+.header-title {
+	@include vertical-align($val: 47%);
+	@extend %centered;
+	color: $white;
+}

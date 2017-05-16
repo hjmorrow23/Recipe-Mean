@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en-US">
+	<head>
+		<meta name="description" content="This is a digital cookbook for the recipes the Morrow's will use into the future.">
+		<meta charset="utf-8">
+	    <meta name="viewport" content="width=device-width, initial-scale=1">
+	    <title>Recipe Name</title>
+	    <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,300i,400,500,700" rel="stylesheet">
+		<link rel="stylesheet" type="text/css" href="assets/css/style.css">	
+	</head>
+	<body ng-app="recipeApp">
+		<div class="app-wrapper">
+			<header class="header">
+				<h1 class="header-title">The Morrow Cookbook</h1>
+			</header>
+			<section class="nav-bar">
+				<nav>
+					<ul class="nav-list">
+						<li class="nav-list-item">
+							<p class="nav-link-container"><a href="" ng-click=" slideShift('latest'); editing = false " class="nav-link">Latest Recipe</a></p>
+						</li>
+						<li class="nav-list-item">
+							<p class="nav-link-container"><a href="" ng-click=" slideShift('new'); editing = false " class="nav-link">Add Recipe</a></p>
+						</li>
+						<li class="nav-list-item">
+							<p class="nav-link-container"><a href="" ng-click=" slideShift('cookbook'); editing = true " ng-hide="editing" class="nav-link">My Recipes</a></p>
+							<div ng-show="editing">
+								<input type="text" name="search" class="search"/>
+								<input type="submit" />
+							</div>
+						</li>
+					</ul>
+				</nav>
+			</section>
+			<div class="slide active latest">
+				<latest></latest>
+			</div>
+			<div class="slide inactive new">
+				<ingrs></ingrs>
+				<direcs></direcs>
+			</div>
+			<div class="slide inactive cookbook">
+				<cookbook></cookbook>
+			</div>
+		</div>		
+		<script src="/node_modules/angular/angular.js"></script>
+		<script src="src/js/app.js" type="text/javascript"></script>
+		<script src="src/js/controllers/main.js" type="text/javascript"></script>
+		<script src="src/js/services/data.js" type="text/javascript"></script>
+		<script src="src/js/directives/ingrs.js" type="text/javascript"></script>
+		<script src="src/js/directives/direcs.js" type="text/javascript"></script>
+		<script src="src/js/directives/latest.js" type="text/javascript"></script>
+		<script src="src/js/directives/directory.js" type="text/javascript"></script>
+	</body>
+</html>

@@ -1,0 +1,9 @@
+/* Latest Recipe Section Styles */
+
+.latest-recipes {
+	padding-top: 3rem;
+	
+	.latest-recipes-heading {
+		@extend %centered;
+	}
+}

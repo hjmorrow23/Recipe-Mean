@@ -1,0 +1,52 @@
+/* Global Styles */
+
+*, *::before, *::after {
+	box-sizing: border-box;
+}
+
+body {
+	margin: 0 auto;
+	font-family: sans-serif;
+	overflow-x: hidden;
+}
+
+ul {
+	list-style: none;
+}
+
+a {
+	text-decoration: none;
+}
+
+input[type="text"] {
+  margin: 0;
+  font-size: 1rem;
+  appearance: none;
+  box-shadow: none;
+  border-radius: none;
+  border: none;
+}
+
+input[type="text"]:focus {
+  outline: none;
+}
+
+.app-wrapper {
+	position: relative;
+}
+
+.slide {
+	position: absolute;
+	width: 100%;
+	transition: transform 1s, opacity 1s;
+}
+
+.active {
+	transform: translateX(0);
+	opacity: 1;
+}
+
+.inactive {
+	transform: translateX(100%);
+	opacity: 0;
+}

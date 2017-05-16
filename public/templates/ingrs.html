@@ -1,0 +1,23 @@
+<section class="ingr" ng-model="ingr">
+	<h1 class="article-heading">Ingredients</h1>
+	<a class="new-item" href="" ng-click="addIngr()">  + New</a>
+	<article class="ingr-module">
+		<div class="row">
+			<h2 class="ingr-sub-heading">Name</h2>
+			<h2 class="ingr-sub-heading">Qty</h2>
+		</div>
+		<div class="row" ng-repeat=" ingr in ingrs "  ng-init="editing = true"> 
+			<div class="ingr-item">
+				<label class="ingr-label" ng-hide="editing" ng-click=" editing = !editing ">{{ingr.name}}</label>
+				<input class="ingr-label" ng-model="ingr.name" ng-show="editing" ng-blur=" editing = false; "  type="text" />
+			</div>						
+			<div class="ingr-item">
+				<label class="ingr-label" ng-hide="editing" ng-click=" editing = !editing ">{{ingr.quantity}}</label>
+				<input class="ingr-label" ng-model="ingr.quantity" ng-show="editing" ng-blur=" editing = false; " type="text" />
+				<button ng-click=" editing = !editing " ng-hide="editing">Edit</button>
+				<button ng-click="saveIngr(ingr); editing = !editing" ng-show="editing">Save</button>
+				<button ng-click="deleteIngr(ingr, $index)">Delete</button>
+			</div>
+		</div>
+	</article>
+</section>

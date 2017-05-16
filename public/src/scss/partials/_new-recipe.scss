@@ -1,0 +1,64 @@
+.ingr {
+	margin-top: 5rem;
+}
+
+.direcs {
+	margin-top: 8rem;
+	margin-bottom: 5rem;
+	
+	ul{
+		padding: 0;
+	}
+}
+
+.new-item {
+	display: block;
+}
+
+.article-heading,
+.direc-item,
+.new-item {
+ 	@extend %centered;
+}
+
+.row {
+	display: block;
+	width: 100%;
+	margin: 0 auto;
+	margin-bottom: 1rem;
+}
+
+.ingr-sub-heading,
+.ingr-item {
+	position: relative;
+	left: 20%
+}
+
+.ingr-sub-heading {
+	display: inline-block;
+	width: 49%;
+	margin-bottom: 2rem;
+}
+
+.ingr-item {
+	display: inline-block;
+	width: 49%; 
+}
+
+.direc-item {
+	width: 80%;
+	margin: 0 auto;
+}
+
+.ingr input[type="text"],
+.direcs input[type="text"] {
+	border-bottom: solid 2px #c9c9c9;
+    transition: border 0.3s;
+}
+
+.ingr input[type="text"]:focus,
+.direcs input[type="text"]:focus {
+	border-bottom: solid 2px $orange;
+}
+
+
