@@ -1,3 +1,5 @@
+var angular = require('angular');
+
 angular.module('recipeApp')
 .directive('cookbook', function(){ 
 	return {

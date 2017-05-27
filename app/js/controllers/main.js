@@ -1,5 +1,7 @@
 'use strict';
 
+var angular = require('angular');
+
 angular.module("recipeApp")
 .controller('mainCtrl', function($scope, dataService) {
 	
@@ -31,7 +33,7 @@ angular.module("recipeApp")
 	
 	dataService.getIngrs(function(response) {
 		console.log(response.data);
-		$scope.ingrs = response.data;
+		$scope.ingrs = response.data.ingrs;
 	});
 	
 	dataService.getDirecs(function(response) {
@@ -40,8 +42,9 @@ angular.module("recipeApp")
 	});
 	
 	$scope.deleteIngr = function(ingr, $index) {
-		dataService.deleteIngr(ingr);
-		$scope.ingrs.splice($index, 1);
+		dataService.deleteIngr(ingr).then(function () {
+        	$scope.ingrs.splice($index, 1);
+		});
 	}
 	
 	$scope.deleteDirec = function(direc, $index) {
@@ -49,8 +52,8 @@ angular.module("recipeApp")
 		$scope.direcs.splice($index, 1);
 	}
 	
-	$scope.saveIngr = function(ingr) {
-		dataService.saveIngr(ingr);
+	$scope.saveIngr = function(ingrs) {
+		dataService.saveIngr(ingrs);
 	}
 	
 	$scope.saveDirec = function(direc) {

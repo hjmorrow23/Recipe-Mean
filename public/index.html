@@ -4,44 +4,56 @@
 		<meta name="description" content="This is a digital cookbook for the recipes the Morrow's will use into the future.">
 		<meta charset="utf-8">
 	    <meta name="viewport" content="width=device-width, initial-scale=1">
-	    <title>The Morrow Cookbook</title>
+	    <title>Recipe Name</title>
 	    <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,300i,400,500,700" rel="stylesheet">
 		<link rel="stylesheet" type="text/css" href="assets/css/style.css">	
 	</head>
-	<body>
-		<header class="header">
-<!-- 			<div class="header-logo"></div> -->
-			<h1 class="header-title">The Morrow Cookbook</h1>
-		</header>
-		<section class="nav-bar">
-			<nav>
-				<ul class="nav-list">
-					<li class="nav-list-item">
-						<p class="nav-link-container"><a href="" class="nav-link">My Recipes</a></p>
-					</li>
-					<li class="nav-list-item">
-						<p class="nav-link-container"><a href="" class="nav-link">Add Recipe</a></p>
-					</li>
-					<li class="nav-list-item">
-						<div>
-							<input type="text" name="search" class="search"/>
-							<input type="submit" />
-						</div>
-					</li>
-				</ul>
-			</nav>
-		</section>
-		<section class="latest-recipes">
-			<h1 class="latest-recipes-heading">Latest Recipes</h1>
-			<article class="recipe">
-				<h2 class="recipe-name"></h2>
-				<p class="recipe-category"></p>
-				<p class="recipe-cook-time"></p>
-				<p class="recipe-prep-time"></p>
-				<img class="recipe-image" src="" />
-			</article>
-		</section>
-		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular.min.js"></script>
-		<script src="assets/js/app.js" type="text/javascript"></script>
+	<body ng-app="recipeApp">
+		<div class="app-wrapper">
+			<header class="header">
+				<h1 class="header-title">The Morrow Cookbooks</h1>
+			</header>
+			<section class="nav-bar">
+				<nav>
+					<ul class="nav-list">
+						<li class="nav-list-item">
+							<p class="nav-link-container"><a href="" ng-click=" slideShift('latest'); editing = false " class="nav-link">Latest Recipe</a></p>
+						</li>
+						<li class="nav-list-item">
+							<p class="nav-link-container"><a href="" ng-click=" slideShift('new'); editing = false " class="nav-link">Add Recipe</a></p>
+						</li>
+						<li class="nav-list-item">
+							<p class="nav-link-container"><a href="" ng-click=" slideShift('cookbook'); editing = true " ng-hide="editing" class="nav-link">My Recipes</a></p>
+							<div ng-show="editing">
+								<input type="text" name="search" class="search"/>
+								<input type="submit" />
+							</div>
+						</li>
+					</ul>
+				</nav>
+			</section>
+			<div class="slide active latest">
+				<latest></latest>
+			</div>
+			<div class="slide inactive new">
+				<ingrs></ingrs>
+				<direcs></direcs>
+			</div>
+			<div class="slide inactive cookbook">
+				<cookbook></cookbook>
+			</div>
+		</div>
+		<script src="/js/vendor.bundle.js"></script>
+		<script src="/js/recipe.bundle.js"></script>		
+<!--
+		<script src="/node_modules/angular/angular.js"></script>
+		<script src="src/js/app.js" type="text/javascript"></script>
+		<script src="src/js/controllers/main.js" type="text/javascript"></script>
+		<script src="src/js/services/data.js" type="text/javascript"></script>
+		<script src="src/js/directives/ingrs.js" type="text/javascript"></script>
+		<script src="src/js/directives/direcs.js" type="text/javascript"></script>
+		<script src="src/js/directives/latest.js" type="text/javascript"></script>
+		<script src="src/js/directives/directory.js" type="text/javascript"></script>
+-->
 	</body>
 </html>

@@ -15,7 +15,7 @@
 				<label class="ingr-label" ng-hide="editing" ng-click=" editing = !editing ">{{ingr.quantity}}</label>
 				<input class="ingr-label" ng-model="ingr.quantity" ng-show="editing" ng-blur=" editing = false; " type="text" />
 				<button ng-click=" editing = !editing " ng-hide="editing">Edit</button>
-				<button ng-click="saveIngr(ingr); editing = !editing" ng-show="editing">Save</button>
+				<button ng-click="saveIngr(ingrs); editing = !editing" ng-show="editing">Save</button>
 				<button ng-click="deleteIngr(ingr, $index)">Delete</button>
 			</div>
 		</div>

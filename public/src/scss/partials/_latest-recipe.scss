@@ -7,3 +7,19 @@
 		@extend %centered;
 	}
 }
+
+.recipe {
+	width: 80%;
+	margin: 0 auto;
+	padding-bottom: 3rem;
+	
+	.recipe-details {
+		display: inline-block;
+		width: 50%;
+	}
+	
+	.recipe-image {
+		display: inline-block;
+		float: right;
+	}
+}
