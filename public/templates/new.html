@@ -1,0 +1,52 @@
+<section class="latest-recipes" ng-model="recipes">
+	<article class="recipe">
+		<div class="info" ng-repeat="recipe in recipes">
+			<div>
+				<h2 class="new-recipe-name" ng-hide="editing">Name: {{recipe.name}}</h2>
+				<input class="ingr-label" ng-model="recipe.name" ng-show="editing" placeholder="Name" type="text" />
+			</div>
+			<div class="recipe-details">
+				<div>
+					<label class="recipe-category" ng-hide="editing">Category: {{recipe.category}}</label>
+					<input class="ingr-label" ng-model="recipe.category" ng-show="editing" placeholder="Category" type="text" />
+				</div>
+				<div>
+					<label class="recipe-prep-time" ng-hide="editing">Prep Time: {{recipe.prepTime}}</label>
+					<input class="ingr-label" ng-model="recipe.prepTime" ng-show="editing" placeholder="Prep Time" type="text" />
+				</div>
+				<div>
+					<label class="recipe-cook-time" ng-hide="editing">Cook Time: {{recipe.cookTime}}</label>
+					<input class="ingr-label" ng-model="recipe.cookTime" ng-show="editing" placeholder="Cook Time" type="text" />
+				</div>
+			</div>
+		</div>
+
+<!-- 	<img class="recipe-image" src="../img/cookies.jpeg" /> -->
+<!-- 	TODO: Add a way to upload images  -->
+		<h3>Ingredients</h3>
+		<a class="new-item" href="" ng-click="addIngr()" ng-show="editing">  + New</a>
+		<div ng-model="ingr">
+			<ul ng-repeat=" ingr in ingrs ">
+				<li>
+					<label class="recipe-prep-time" ng-hide="editing">{{ingr.name}} {{ingr.quantity}}</label>
+					<input class="ingr-label" ng-model="ingr.name" ng-show="editing" placeholder="Ingredient Name" type="text" />
+					<input class="ingr-label" ng-model="ingr.quantity" ng-show="editing" placeholder="Ingredient Quantity" type="text" />
+					<button class="button" ng-click="deleteIngr(ingr, $index)" ng-show="editing">Delete</button>
+				</li>
+			</ul>
+		</div>
+		<h3>Instructions</h3>
+		<a href="" class="new-item" ng-click="addDirec()" ng-show="editing">  + New</a>
+		<div ng-model="direc">
+			<ul ng-repeat=" direc in direcs ">
+				<li>
+					<label class="recipe-prep-time" ng-hide="editing">{{$index +1}}. {{direc}}</label>
+					<input class="ingr-label" ng-model="direc" ng-show="editing" placeholder="Instruction" type="text" />
+					<button class="button" ng-click="deleteDirec(direc, $index)" ng-show="editing">Delete</button>
+				</li>
+			</ul>
+		</div>
+		<button class="button" ng-click=" editing = !editing " ng-hide="editing">Edit</button>
+		<button class="button"ng-click="saveRecipe(recipes); editing = !editing" ng-show="editing">Save</button>
+	</article>
+</section>

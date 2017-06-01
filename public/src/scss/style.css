@@ -56,7 +56,7 @@ input[type="text"]:focus {
 
 .header {
   height: 12rem;
-  background-color: #FFAE19;
+  background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url("../../img/kitchen.jpg");
   padding-top: 1px; }
 
 .header-title {
@@ -73,25 +73,32 @@ input[type="text"]:focus {
   background-color: #f9f9f9;
   padding-top: 1px;
   height: 100%;
-  width: 100%; }
+  width: 100%;
+  -webkit-box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.47);
+  -moz-box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.47);
+  box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.47); }
 
 .nav-list {
   padding: 0;
   margin: 0; }
 
-@media only screen and (min-width: 768px) {
-  .nav-list-item {
-    display: inline-block;
-    width: 33%;
-    height: 100%;
-    border-right: 1px solid black; } }
+.nav-list-item {
+  border-bottom: 1px solid #C3BFBF; }
+  @media only screen and (min-width: 768px) {
+    .nav-list-item {
+      display: inline-block;
+      width: 33%;
+      height: 100%;
+      border-right: 1px solid #C3BFBF;
+      border-bottom: none; } }
+  .nav-list-item div {
+    height: 100%; }
 
-.nav-list-item div {
-  height: 100%; }
-
-@media only screen and (min-width: 768px) {
-  .nav-list-item:last-child {
-    border-right: none; } }
+.nav-list-item:last-child {
+  border-bottom: none; }
+  @media only screen and (min-width: 768px) {
+    .nav-list-item:last-child {
+      border-right: none; } }
 
 .nav-link-container {
   height: 100%;
@@ -111,11 +118,32 @@ input[type="text"]:focus {
 
 .nav-bar input[type="text"] {
   border: solid 1px #dcdcdc;
-  transition: box-shadow 0.3s, border 0.3s; }
+  transition: box-shadow 0.3s, border 0.3s;
+  margin-right: .5rem; }
 
 .nav-bar input[type="text"]:focus {
   border: solid 1px #FFAE19;
   box-shadow: 0 0 5px 1px #FFAE19; }
+
+.search-icon {
+  -webkit-transform: rotate(45deg);
+  -moz-transform: rotate(45deg);
+  -o-transform: rotate(45deg);
+  transform: rotate(45deg);
+  display: inline-block;
+  margin: 0;
+  font-size: 1.5rem; }
+  .search-icon a {
+    color: black;
+    transition: color 0.5s; }
+  .search-icon a:hover {
+    color: #FFAE19; }
+
+@media only screen and (max-width: 768px) {
+  .search-container {
+    position: relative;
+    left: 1rem;
+    overflow: hidden; } }
 
 /* Latest Recipe Section Styles */
 .latest-recipes {
@@ -131,6 +159,9 @@ input[type="text"]:focus {
   .recipe .recipe-image {
     display: inline-block;
     float: right; }
+    @media only screen and (max-width: 768px) {
+      .recipe .recipe-image {
+        float: none; } }
 
 .ingr {
   margin-top: 5rem; }
@@ -143,6 +174,21 @@ input[type="text"]:focus {
 
 .new-item {
   display: block; }
+
+.button {
+  background-color: white; }
+
+.new-item,
+.button {
+  width: 5rem;
+  border: 1px solid black;
+  color: black;
+  transition: color 0.5s, background-color 0.5s; }
+
+.new-item:hover,
+.button:hover {
+  color: white;
+  background-color: black; }
 
 .row {
   display: block;
@@ -168,11 +214,9 @@ input[type="text"]:focus {
   width: 80%;
   margin: 0 auto; }
 
-.ingr input[type="text"],
-.direcs input[type="text"] {
+.recipe input[type="text"] {
   border-bottom: solid 2px #c9c9c9;
   transition: border 0.3s; }
 
-.ingr input[type="text"]:focus,
-.direcs input[type="text"]:focus {
+.recipe input[type="text"]:focus {
   border-bottom: solid 2px #FFAE19; }

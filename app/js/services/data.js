@@ -5,52 +5,82 @@ var angular = require('angular');
 angular.module("recipeApp")
 .service('dataService', function ($http, $q) {
 	
-	this.getIngrs = function(callback) { $http.get('api/ingredients')
+	//Gets recipe data saved in API
+	this.getRecipes = function(callback) { $http.get('api/recipes')
 	.then(callback)
 	};
 	
-	this.getDirecs = function(callback) { $http.get('src/mock/direcs.json')
-	.then(callback)
-	};
-	
-	this.deleteIngr = function(ingr) {
-		if (!ingr._id) {
+	//Delete function to remove full recipe from the API data
+	this.deleteRecipe = function(recipe) {
+		
+		//If no recipe id found, resolve
+		if (!recipe._id) {
 	        return $q.resolve();
 	    }
-	    return $http.delete('/api/ingredients/' + ingr._id).then(function () {
-	        console.log("I deleted the " + ingr.name + " ingredient!"); 
+	    
+	    //Return the request to delete the recipe from API based on id and log success statement to console.
+	    return $http.delete('/api/recipes/' + recipe._id).then(function () {
+	        console.log("I deleted the " + recipe.name + " ingredient!"); 
 	    });
-		// logic to delete this data from the database.
 	};
 	
+	//Log successful removal of ingredient from ingrs array
+	this.deleteIngr = function(ingr) {
+	    console.log("I deleted the " + ingr.name + " ingredient!"); 
+	};
+	
+	//Log successful removal of direction step from direcs array
 	this.deleteDirec = function(direc) {
 		console.log("The " + direc.name + " ingredient has been deleted!");
-		// logic to delete this data from the database.
 	};
 	
-	this.saveIngr = function(ingrs) {
+	//Save the new or edited recipe to the API data
+	this.saveRecipe = function(recipes) {
 		var queue = [];
-		ingrs.forEach(function(ingr) {
+		
+		//Loop through each recipe in recipes
+		recipes.forEach(function(recipe) {
 			var request;
-			if(!ingr._id) {
-				request = $http.post('/api/ingredients', ingr)
+			
+			//post method for recipe if there is no id and put method if there is an id
+			if(!recipe._id) {
+				request = $http.post('/api/recipes', recipe);
 			} else {
-				request = $http.put('/api/ingredients/' + ingr._id, ingr).then(function(result) {
-					ingr = result.data.ingr;
-					return ingr;
+				request = $http.put('/api/recipes/' + recipe._id, recipe).then(function(result) {
+					recipe = result.data.recipe;
+					return recipe;
 				});
 			};
+			
+			//Push result to queue
 			queue.push(request);
 		});
+		
+		//return queue to api
 		return $q.all(queue).then(function(results) {
-			console.log("I saved " + ingrs.length + " ingredients!");
+			console.log("I saved " + recipes.length + " ingredients!");
 		});
-		console.log("The " + direc.name + " ingredient has been saved!");
-		// logic to save this data to the database.
+		
+		var newRecipe = {
+			name: "",
+			image: "",
+			category: "",
+			cookTime: "",
+			prepTime: "",
+			ingrs: [
+				{
+					name: "",
+					quantity: ""
+				}
+			],
+			direcs: [
+				""
+			]		
+		};
+		
+		recipes.unshift(newRecipe);
 	};
 	
-	this.saveDirec = function(direc) {
-		console.log("The " + direc.name + " ingredient has been saved!");
-		// logic to save this data to the database.
-	};
+	//TODO: Add new recipe to end of recipes with the same keys, but no data
+	
 });

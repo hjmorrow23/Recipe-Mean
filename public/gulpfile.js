@@ -2,21 +2,12 @@ var gulp = require("gulp");
 
 var sass = require("gulp-sass");
 var minifycss = require("gulp-minify-css");
-var browserSync = require("browser-sync").create();
 var plumber = require("gulp-plumber");
 var notifier = require("node-notifier");
 var notify = require("gulp-notify");
 var uglify = require("gulp-uglify");
 
 // BrowserSync server
-gulp.task('browser-sync', function() {
-    browserSync.init({
-        server: {
-            baseDir: "./"
-        }
-    });
-});
-
 gulp.task('sass', function() {
     return gulp.src('src/scss/style.scss')
     	.pipe(plumber())
@@ -27,8 +18,7 @@ gulp.task('sass', function() {
             }))
         )
         .pipe(minifycss())
-        .pipe(gulp.dest('assets/css'))
-        .pipe(browserSync.stream());
+        .pipe(gulp.dest('assets/css'));
 });
 
 // Javascript Task
@@ -42,10 +32,9 @@ gulp.task('scripts', function() {
         .pipe(gulp.dest('assets/js'));
 });
 
-gulp.task('default', ['sass', 'scripts', 'browser-sync'], function() {
+gulp.task('default', ['sass', 'scripts'], function() {
     gulp.watch(['src/scss/*', 'src/scss/**/*'], ['sass']);
     gulp.watch(['src/js/*', 'src/js/**/*'], ['scripts']);
-    gulp.watch('*.html').on('change', browserSync.reload);
 });
 
 

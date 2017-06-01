@@ -21,5 +21,9 @@
 	.recipe-image {
 		display: inline-block;
 		float: right;
+		
+		@include max-down(768px) {
+			float: none;
+		}
 	}
 }

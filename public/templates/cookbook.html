@@ -1,30 +1,13 @@
-<section class="latest-recipes">
-	<h1 class="latest-recipes-heading">Latest Recipe</h1>
-	<article class="recipe">
-		<h2 class="recipe-name">Peanut Butter Chocolate Chip Cookies</h2>
+<section class="latest-recipes" ng-model="recipes">
+	<h1 class="latest-recipes-heading">My Recipes</h1>
+<!-- TODO: Link each recipe-name to it's own edit page  -->
+	<article class="recipe" ng-repeat=" recipe in recipes">
+		<h2 class="recipe-name">{{recipe.name}}</h2>
 		<div class="recipe-details">
-			<p class="recipe-category">Category: Dessert</p>
-			<p class="recipe-prep-time">Prep Time: 15 min</p>
-			<p class="recipe-cook-time">Cook Time: 8 min</p>
+			<p class="recipe-category">{{recipe.category}}</p>
+			<p class="recipe-prep-time">Prep Time: {{recipe.prepTime}}</p>
+			<p class="recipe-cook-time">Cook Time: {{recipe.cookTime}}</p>
 		</div>
-		<img class="recipe-image" src="../img/cookies.jpeg" />
-	</article>
-	<article class="recipe">
-		<h2 class="recipe-name">Ann Marie's Chicken Tenders</h2>
-		<div class="recipe-details">
-			<p class="recipe-category">Category: Chicken</p>
-			<p class="recipe-prep-time">Prep Time: 20 min</p>
-			<p class="recipe-cook-time">Cook Time: 25 min</p>
-		</div>
-		<img class="recipe-image" src="../img/chicken.jpg" />
-	</article>
-	<article class="recipe">
-		<h2 class="recipe-name">Fruit + Caramel Pancakes</h2>
-		<div class="recipe-details">
-			<p class="recipe-category">Category: Breakfast</p>
-			<p class="recipe-prep-time">Prep Time: 30 min</p>
-			<p class="recipe-cook-time">Cook Time: 30 min</p>
-		</div>
-		<img class="recipe-image" src="../img/pancake.jpeg" />
+		<img class="recipe-image" src="{{recipe.image}}" />
 	</article>
 </section>

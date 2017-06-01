@@ -15,6 +15,24 @@
 	display: block;
 }
 
+.button {
+	background-color: white;
+}
+
+.new-item,
+.button {
+	width: 5rem;
+	border: 1px solid black;
+	color: black;
+	transition: color .5s, background-color .5s;
+}
+
+.new-item:hover,
+.button:hover {
+	color: white;
+	background-color: black;
+}
+
 .article-heading,
 .direc-item,
 .new-item {
@@ -50,14 +68,12 @@
 	margin: 0 auto;
 }
 
-.ingr input[type="text"],
-.direcs input[type="text"] {
+.recipe input[type="text"] {
 	border-bottom: solid 2px #c9c9c9;
     transition: border 0.3s;
 }
 
-.ingr input[type="text"]:focus,
-.direcs input[type="text"]:focus {
+.recipe input[type="text"]:focus {
 	border-bottom: solid 2px $orange;
 }
 

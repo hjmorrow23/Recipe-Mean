@@ -6,26 +6,10 @@ webpackJsonp([0],[
 "use strict";
 
 
-var angular = __webpack_require__(0);
-
 angular.module("recipeApp")
 .controller('mainCtrl', function($scope, dataService) {
 	
-	$scope.addIngr = function() {
-		var ingr = { 
-			name: "ex Butter", 
-			quantity: "ex 2 tbsp"
-		};
-		$scope.ingrs.unshift(ingr); //use ingrs.push to add to end of list 
-	}
-	
-	$scope.addDirec = function() {
-		var direc = {
-			step: "ex Stir for 2 hours on low heat"
-		};
-		$scope.direcs.push(direc);
-	}
-	
+	//Interaction to switch out active div to display on page on link click
 	$scope.slideShift = function(daClass) {
 		var slideIn = document.querySelector('.' + daClass + '');
 		var slideOut = document.querySelector('.active');
@@ -37,54 +21,57 @@ angular.module("recipeApp")
 		}
 	}
 	
-	dataService.getIngrs(function(response) {
+	//Gets Recipes from API and indentifies the recipe, ingredients, and directions to be edited in the app
+	dataService.getRecipes(function(response) {
 		console.log(response.data);
-		$scope.ingrs = response.data.ingrs;
+		$scope.recipes = response.data.recipes;
+		for(var i = 0; i < $scope.recipes.length; i++) {
+			$scope.ingrs = $scope.recipes[i].ingrs;
+			$scope.direcs = $scope.recipes[i].direcs;
+		}
+		
+		//check to make sure ingredient and direction data is being pulled correctly
+		console.log($scope.ingrs);
+		console.log($scope.direcs);
 	});
 	
-	dataService.getDirecs(function(response) {
-		console.log(response.data);
-		$scope.direcs = response.data;
-	});
-	
-	$scope.deleteIngr = function(ingr, $index) {
-		dataService.deleteIngr(ingr).then(function () {
-        	$scope.ingrs.splice($index, 1);
-		});
+	//Adds a new input of an ingredient that can be added to your recipe
+	$scope.addIngr = function() {
+		var ingr = { 
+			name: "Name", 
+			quantity: "Quantity"
+		};
+		$scope.ingrs.unshift(ingr); //adds new ingredient to beginning of the array
 	}
 	
+	//Adds a new input of a direction step that can be added to your recipe
+	$scope.addDirec = function() {
+		var direc =  "Next step";
+		$scope.direcs.push(direc); //adds new ingredient to end of the array
+	}
+	
+	//Delete specific ingredient data piece from the array
+	$scope.deleteIngr = function(ingr, $index) {
+		dataService.deleteIngr(ingr);
+		$scope.ingrs.splice($index, 1);
+	}
+	
+	//Delete specific ingredient data piece from the array
 	$scope.deleteDirec = function(direc, $index) {
 		dataService.deleteDirec(direc);
 		$scope.direcs.splice($index, 1);
 	}
 	
-	$scope.saveIngr = function(ingrs) {
-		dataService.saveIngr(ingrs);
-	}
-	
-	$scope.saveDirec = function(direc) {
-		dataService.saveIngr(direc);
+	//Saves the recipe based on save function in dataService
+	$scope.saveRecipe = function(recipe) {
+		dataService.saveRecipe(recipe);
 	}
 });
+
 
 
 /***/ }),
 /* 2 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var angular = __webpack_require__(0);
-
-angular.module('recipeApp')
-.directive('direcs', function(){  //directions
-	return {
-		templateUrl: 'templates/direcs.html',
-		controller: 'mainCtrl',
-		replace: true
-	}
-});
-
-/***/ }),
-/* 3 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var angular = __webpack_require__(0);
@@ -100,7 +87,7 @@ angular.module('recipeApp')
 
 
 /***/ }),
-/* 4 */
+/* 3 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var angular = __webpack_require__(0);
@@ -116,7 +103,7 @@ angular.module('recipeApp')
 
 
 /***/ }),
-/* 5 */
+/* 4 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var angular = __webpack_require__(0);
@@ -132,6 +119,21 @@ angular.module('recipeApp')
 
 
 /***/ }),
+/* 5 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var angular = __webpack_require__(0);
+
+angular.module('recipeApp')
+.directive('new', function(){  //directions
+	return {
+		templateUrl: 'templates/new.html',
+		controller: 'mainCtrl',
+		replace: true
+	}
+});
+
+/***/ }),
 /* 6 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -143,54 +145,84 @@ var angular = __webpack_require__(0);
 angular.module("recipeApp")
 .service('dataService', function ($http, $q) {
 	
-	this.getIngrs = function(callback) { $http.get('api/ingredients')
+	//Gets recipe data saved in API
+	this.getRecipes = function(callback) { $http.get('api/recipes')
 	.then(callback)
 	};
 	
-	this.getDirecs = function(callback) { $http.get('src/mock/direcs.json')
-	.then(callback)
-	};
-	
-	this.deleteIngr = function(ingr) {
-		if (!ingr._id) {
+	//Delete function to remove full recipe from the API data
+	this.deleteRecipe = function(recipe) {
+		
+		//If no recipe id found, resolve
+		if (!recipe._id) {
 	        return $q.resolve();
 	    }
-	    return $http.delete('/api/ingredients/' + ingr._id).then(function () {
-	        console.log("I deleted the " + ingr.name + " ingredient!"); 
+	    
+	    //Return the request to delete the recipe from API based on id and log success statement to console.
+	    return $http.delete('/api/recipes/' + recipe._id).then(function () {
+	        console.log("I deleted the " + recipe.name + " ingredient!"); 
 	    });
-		// logic to delete this data from the database.
 	};
 	
+	//Log successful removal of ingredient from ingrs array
+	this.deleteIngr = function(ingr) {
+	    console.log("I deleted the " + ingr.name + " ingredient!"); 
+	};
+	
+	//Log successful removal of direction step from direcs array
 	this.deleteDirec = function(direc) {
 		console.log("The " + direc.name + " ingredient has been deleted!");
-		// logic to delete this data from the database.
 	};
 	
-	this.saveIngr = function(ingrs) {
+	//Save the new or edited recipe to the API data
+	this.saveRecipe = function(recipes) {
 		var queue = [];
-		ingrs.forEach(function(ingr) {
+		
+		//Loop through each recipe in recipes
+		recipes.forEach(function(recipe) {
 			var request;
-			if(!ingr._id) {
-				request = $http.post('/api/ingredients', ingr)
+			
+			//post method for recipe if there is no id and put method if there is an id
+			if(!recipe._id) {
+				request = $http.post('/api/recipes', recipe);
 			} else {
-				request = $http.put('/api/ingredients/' + ingr._id, ingr).then(function(result) {
-					ingr = result.data.ingr;
-					return ingr;
+				request = $http.put('/api/recipes/' + recipe._id, recipe).then(function(result) {
+					recipe = result.data.recipe;
+					return recipe;
 				});
 			};
+			
+			//Push result to queue
 			queue.push(request);
 		});
+		
+		//return queue to api
 		return $q.all(queue).then(function(results) {
-			console.log("I saved " + ingrs.length + " ingredients!");
+			console.log("I saved " + recipes.length + " ingredients!");
 		});
-		console.log("The " + direc.name + " ingredient has been saved!");
-		// logic to save this data to the database.
+		
+		var newRecipe = {
+			name: "",
+			image: "",
+			category: "",
+			cookTime: "",
+			prepTime: "",
+			ingrs: [
+				{
+					name: "",
+					quantity: ""
+				}
+			],
+			direcs: [
+				""
+			]		
+		};
+		
+		recipes.unshift(newRecipe);
 	};
 	
-	this.saveDirec = function(direc) {
-		console.log("The " + direc.name + " ingredient has been saved!");
-		// logic to save this data to the database.
-	};
+	//TODO: Add new recipe to end of recipes with the same keys, but no data
+	
 });
 
 /***/ }),
@@ -206,10 +238,10 @@ angular.module("recipeApp", []);
 
 __webpack_require__(1);
 __webpack_require__(6);
-__webpack_require__(4);
-__webpack_require__(2);
 __webpack_require__(3);
 __webpack_require__(5);
+__webpack_require__(2);
+__webpack_require__(4);
 
 /***/ })
 ],[7]);

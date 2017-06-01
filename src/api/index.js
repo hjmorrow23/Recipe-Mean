@@ -1,53 +1,57 @@
 'use strict';
 
+//require express, model data, and a router
 var express = require('express');
-var Ingr = require('../models/ingr');
-// var ingrs = require('../../mock/ingrs.json');
+var Recipe = require('../models/recipe');
 var router = express.Router();
 
-router.get('/ingredients', function(req, res) {
-	Ingr.find({}, function(err, ingrs) {
+//Get recipe data from API as JSON
+router.get('/recipes', function(req, res) {
+	Recipe.find({}, function(err, recipes) {
 		if(err) {
 			res.status(500).json({message: err.message});
 		}
-		res.json({ingrs: ingrs});
+		res.json({recipes: recipes});
 	});
 	
 });
 
-router.post('/ingredients', function(req, res) {
-	var ingr = req.body;
-	Ingr.create(ingr, function(err, ingr) {
+//Post recipe data to API as JSON
+router.post('/recipes', function(req, res) {
+	var recipe = req.body;
+	Recipe.create(recipe, function(err, recipe) {
 		if(err) {
 			return res.status(500).json({message: err.message});
 		}
-		res.json({'ingr': ingr, message: "Ingredient created"});
+		res.json({'recipe': recipe, message: "Recipe created"});
 	});
 	
 });
 
-router.put('/ingredients/:id', function(req, res) {
+//Put updated recipe data to API as JSON based on id
+router.put('/recipes/:id', function(req, res) {
 	var id = req.params.id;
-	var ingr = req.body;
-	if(ingr && ingr._id !== id) {
+	var recipe = req.body;
+	if(recipe && recipe._id !== id) {
 		return res.status(500).json({message: "Id's don't match!"});
 	}
-	Ingr.findByIdAndUpdate(id, ingr, {new: true}, function(err, ingr) {
+	Recipe.findByIdAndUpdate(id, recipe, {new: true}, function(err, recipe) {
 		if(err) {
 			return res.status(500).json({message: err.message});
 		}
-		res.json({'ingr': ingr, message: "Ingredient updated"});
+		res.json({'recipe': recipe, message: "Recipe updated"});
 	});
 	
 });
 
-router.delete('/ingredients/:id', function (req, res) {
+//Delete recipe data from API based on id
+router.delete('/recipes/:id', function (req, res) {
     var id = req.params.id; 
-    Ingr.findByIdAndRemove(id, function (err, result) {
+    Recipe.findByIdAndRemove(id, function (err, result) {
         if (err) {
             res.status(500).json({ message: err.message });
         } else {
-            res.json({ message: 'Deleted Todo' });
+            res.json({ message: 'Deleted Recipe' });
         }
     });
 });

@@ -1,6 +1,9 @@
 var webpack = require('webpack'),
        path = require('path');
+      
+var ExtractTextPlugin = require('extract-text-webpack-plugin');
 
+//Webpag config including angular and bundling into recipe.bundle.js
 module.exports = {
     context: __dirname + '/app',
     entry: {
@@ -11,6 +14,9 @@ module.exports = {
         path: __dirname + '/public/js',
         filename: 'recipe.bundle.js'
     },
+    
+    watch: true,
+    
     plugins: [
         new webpack.optimize.CommonsChunkPlugin({name: "vendor", filename: "vendor.bundle.js"})
     ]

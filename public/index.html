@@ -11,22 +11,22 @@
 	<body ng-app="recipeApp">
 		<div class="app-wrapper">
 			<header class="header">
-				<h1 class="header-title">The Morrow Cookbooks</h1>
+				<h1 class="header-title">The Morrow Cookbook</h1>
 			</header>
 			<section class="nav-bar">
 				<nav>
 					<ul class="nav-list">
 						<li class="nav-list-item">
-							<p class="nav-link-container"><a href="" ng-click=" slideShift('latest'); editing = false " class="nav-link">Latest Recipe</a></p>
+							<p class="nav-link-container"><a href="" ng-click=" slideShift('latest'); search = false " class="nav-link">Latest Recipe</a></p>
 						</li>
 						<li class="nav-list-item">
-							<p class="nav-link-container"><a href="" ng-click=" slideShift('new'); editing = false " class="nav-link">Add Recipe</a></p>
+							<p class="nav-link-container"><a href="" ng-click=" slideShift('new'); search = false " class="nav-link">Add Recipe</a></p>
 						</li>
 						<li class="nav-list-item">
-							<p class="nav-link-container"><a href="" ng-click=" slideShift('cookbook'); editing = true " ng-hide="editing" class="nav-link">My Recipes</a></p>
-							<div ng-show="editing">
+							<p class="nav-link-container"><a href="" ng-click=" slideShift('cookbook'); search = true " ng-hide="search" class="nav-link">My Recipes</a></p>
+							<div class="search-container" ng-show="search">
 								<input type="text" name="search" class="search"/>
-								<input type="submit" />
+								<p class="search-icon"><a href="">&#9906;</a></p>
 							</div>
 						</li>
 					</ul>
@@ -36,8 +36,7 @@
 				<latest></latest>
 			</div>
 			<div class="slide inactive new">
-				<ingrs></ingrs>
-				<direcs></direcs>
+				<new></new>
 			</div>
 			<div class="slide inactive cookbook">
 				<cookbook></cookbook>
