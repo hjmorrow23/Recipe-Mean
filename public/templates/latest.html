@@ -1,19 +1,19 @@
 <section class="latest-recipes" ng-model="recipes">
 	<h1 class="latest-recipes-heading">Latest Recipe</h1>
 	<article class="recipe">
-		<h2 class="recipe-name">{{recipes[0].name}}</h2>
+		<h2 class="recipe-name">{{recipes[1].name}}</h2>
 		<div class="recipe-details">
-			<p class="recipe-category">Category: {{recipes[0].category}}</p>
-			<p class="recipe-prep-time">Prep Time: {{recipes[0].prepTime}}</p>
-			<p class="recipe-cook-time">Cook Time: {{recipes[0].cookTime}}</p>
+			<p class="recipe-category">Category: {{recipes[1].category}}</p>
+			<p class="recipe-prep-time">Prep Time: {{recipes[1].prepTime}}</p>
+			<p class="recipe-cook-time">Cook Time: {{recipes[1].cookTime}}</p>
 		</div>
 		<img class="recipe-image" src="{{recipes[0].image}}" />
 		<h3>Ingredients</h3>
-		<ul ng-repeat="ingr in recipes[0].ingrs">
+		<ul ng-repeat="ingr in recipes[1].ingrs">
 			<li>{{ingr.name}} {{ingr.quantity}}</li>
 		</ul>
 		<h3>Instructions</h3>
-		<ul ng-repeat="direc in recipes[0].direcs">
+		<ul ng-repeat="direc in recipes[1].direcs track by $index">
 			<li>{{$index +1}}. {{direc}}</li>
 		</ul>
 	</article>

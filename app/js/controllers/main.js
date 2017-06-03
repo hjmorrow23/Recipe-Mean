@@ -30,30 +30,37 @@ angular.module("recipeApp")
 	});
 	
 	//Adds a new input of an ingredient that can be added to your recipe
-	$scope.addIngr = function() {
-		var ingr = { 
-			name: "Name", 
-			quantity: "Quantity"
-		};
-		$scope.ingrs.unshift(ingr); //adds new ingredient to beginning of the array
+	$scope.addIngr = function(recipe) {
+		dataService.addIngr(recipe);
 	}
 	
 	//Adds a new input of a direction step that can be added to your recipe
-	$scope.addDirec = function() {
-		var direc =  "Next step";
-		$scope.direcs.push(direc); //adds new ingredient to end of the array
+	$scope.addDirec = function(recipe) {
+		dataService.addDirec(recipe);
+	}
+	
+	//Save Ingredient being entered
+	$scope.saveIngr = function(recipe) {
+		dataService.saveIngr(recipe);
+	}
+	//Save Direction being entered
+	$scope.saveDirec = function(recipe) {
+		dataService.saveDirec(recipe);
 	}
 	
 	//Delete specific ingredient data piece from the array
 	$scope.deleteIngr = function(ingr, $index) {
-		dataService.deleteIngr(ingr);
 		$scope.ingrs.splice($index, 1);
 	}
 	
 	//Delete specific ingredient data piece from the array
 	$scope.deleteDirec = function(direc, $index) {
-		dataService.deleteDirec(direc);
 		$scope.direcs.splice($index, 1);
+	}
+	
+	//Delete recipe from recipes array
+	$scope.deleteRecipe = function(recipe, $index) {
+		dataService.deleteRecipe(recipe, $index);
 	}
 	
 	//Saves the recipe based on save function in dataService
