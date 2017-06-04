@@ -67,5 +67,10 @@ angular.module("recipeApp")
 	$scope.saveRecipe = function(recipe) {
 		dataService.saveRecipe(recipe);
 	}
+	
+	//Search function from dataService activated on ng-click in app
+	$scope.searchRecipe = function(recipe) {
+		dataService.searchRecipe(recipe);
+	}
 });
 

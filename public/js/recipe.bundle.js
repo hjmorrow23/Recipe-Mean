@@ -73,6 +73,11 @@ angular.module("recipeApp")
 	$scope.saveRecipe = function(recipe) {
 		dataService.saveRecipe(recipe);
 	}
+	
+	//Search function from dataService activated on ng-click in app
+	$scope.searchRecipe = function(recipe) {
+		dataService.searchRecipe(recipe);
+	}
 });
 
 
@@ -142,6 +147,21 @@ angular.module('recipeApp')
 
 /***/ }),
 /* 6 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var angular = __webpack_require__(0);
+
+angular.module('recipeApp')
+.directive('single', function(){  //directions
+	return {
+		templateUrl: 'templates/single.html',
+		controller: 'mainCtrl',
+		replace: true
+	}
+});
+
+/***/ }),
+/* 7 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -256,6 +276,7 @@ angular.module("recipeApp")
 			category: "",
 			cookTime: "",
 			prepTime: "",
+			visible: true,
 			ingrs: [
 				{
 					name: "",
@@ -295,10 +316,30 @@ angular.module("recipeApp")
 		console.log(recipes);
 	};
 	
+	//COOKBOOK PAGE SEARCH
+	this.searchRecipe = function(recipes) {
+		var input = document.getElementById("search-value").value;
+		input = input.toUpperCase();
+		recipes.forEach(function(recipe) {
+			if (recipe.category.toUpperCase() == input || recipe.name.toUpperCase() == input || input == "" || recipe.name.toUpperCase().indexOf(input) >= 0) {
+				recipe.visible = true;
+			} else {
+				recipe.visible = false;
+			}
+		});	
+	}
+	
+	//COOKBOOK PAGE LINKING
+	
+	//on click, get recipe by index
+	
+	//generate single template with information based on recipe index
+	
+	//display page contents based on data and allow for editing	
 });
 
 /***/ }),
-/* 7 */
+/* 8 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -309,11 +350,12 @@ var angular = __webpack_require__(0);
 angular.module("recipeApp", []);
 
 __webpack_require__(1);
-__webpack_require__(6);
+__webpack_require__(7);
 __webpack_require__(3);
 __webpack_require__(5);
+__webpack_require__(6);
 __webpack_require__(2);
 __webpack_require__(4);
 
 /***/ })
-],[7]);
+],[8]);

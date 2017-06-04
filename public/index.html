@@ -25,8 +25,8 @@
 						<li class="nav-list-item">
 							<p class="nav-link-container"><a href="" ng-click=" slideShift('cookbook'); search = true " ng-hide="search" class="nav-link">My Recipes</a></p>
 							<div class="search-container" ng-show="search">
-								<input type="text" name="search" class="search"/>
-								<p class="search-icon"><a href="">&#9906;</a></p>
+								<input type="text" ng-keyup="$event.keyCode == 13 && searchRecipe(recipes)" name="search" class="search" id="search-value"/>
+								<p class="search-icon"><a href="" ng-model="recipes" ng-click="searchRecipe(recipes)">&#9906;</a></p>
 							</div>
 						</li>
 					</ul>
@@ -40,6 +40,9 @@
 			</div>
 			<div class="slide inactive cookbook">
 				<cookbook></cookbook>
+			</div>
+			<div class="slide inactive single">
+				<single></single>
 			</div>
 		</div>
 		<script src="/js/vendor.bundle.js"></script>

@@ -10,6 +10,7 @@ var recipeSchema = new mongoose.Schema({
 		category: String,
 		cookTime: String,
 		prepTime: String,
+		visible: Boolean,
 		ingrs: [
 			{
 				name: String,

@@ -109,6 +109,7 @@ angular.module("recipeApp")
 			category: "",
 			cookTime: "",
 			prepTime: "",
+			visible: true,
 			ingrs: [
 				{
 					name: "",
@@ -148,4 +149,24 @@ angular.module("recipeApp")
 		console.log(recipes);
 	};
 	
+	//COOKBOOK PAGE SEARCH
+	this.searchRecipe = function(recipes) {
+		var input = document.getElementById("search-value").value;
+		input = input.toUpperCase();
+		recipes.forEach(function(recipe) {
+			if (recipe.category.toUpperCase() == input || recipe.name.toUpperCase() == input || input == "" || recipe.name.toUpperCase().indexOf(input) >= 0) {
+				recipe.visible = true;
+			} else {
+				recipe.visible = false;
+			}
+		});	
+	}
+	
+	//COOKBOOK PAGE LINKING
+	
+	//on click, get recipe by index
+	
+	//generate single template with information based on recipe index
+	
+	//display page contents based on data and allow for editing	
 });

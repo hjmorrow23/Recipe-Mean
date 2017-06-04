@@ -11,6 +11,7 @@ var recipes = [
 		category: "Dessert",
 		cookTime: "8 minutes",
 		prepTime: "15 minutes",
+		visible: true,
 		ingrs: [
 			{
 				name: "Butter",

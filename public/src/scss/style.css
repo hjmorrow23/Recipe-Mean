@@ -163,6 +163,14 @@ input[type="text"]:focus {
       .recipe .recipe-image {
         float: none; } }
 
+.recipe-link {
+  color: black;
+  text-decoration: none;
+  transition: color 0.5s; }
+
+.recipe-link:hover {
+  color: #FFAE19; }
+
 .ingr {
   margin-top: 5rem; }
 
