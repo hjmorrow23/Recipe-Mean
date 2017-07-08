@@ -3,6 +3,8 @@
 angular.module("recipeApp")
 .controller('mainCtrl', function($scope, dataService) {
 	
+	$scope.selected = "home";
+	
 	//Interaction to switch out active div to display on page on link click
 	$scope.slideShift = function(daClass) {
 		var slideIn = document.querySelector('.' + daClass + '');
@@ -71,6 +73,15 @@ angular.module("recipeApp")
 	//Search function from dataService activated on ng-click in app
 	$scope.searchRecipe = function(recipe) {
 		dataService.searchRecipe(recipe);
+	}
+	
+	$scope.selectRecipe = function(setSelection) {
+		$scope.selected = setSelection;
+	}
+	
+	//Selected in cookbook to display view
+	$scope.isSelected = function(checkSelection) {
+		return $scope.selected === checkSelection;
 	}
 });
 

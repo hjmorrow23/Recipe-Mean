@@ -1,9 +1,11 @@
+<!--	Cookbook Directory Section	-->
 <section class="latest-recipes" ng-model="recipes">
 	<h1 class="latest-recipes-heading">My Recipes</h1>
-<!-- TODO: Link each recipe-name to it's own edit page  -->
 	<article class="recipe" ng-repeat=" recipe in recipes ">
+		
+		<!--	Recipe Details	-->
 		<div ng-hide="recipe.visible == false">
-			<h2 class="recipe-name"><!-- <a href="" class="recipe-link" ng-click=" slideShift('single'); search = false "> -->{{recipe.name}}<!-- </a> --></h2>
+			<h2 class="recipe-name"><a href="" class="recipe-link" ng-click=" slideShift('single'); search = false; selectRecipe($index) ">{{recipe.name}}</a></h2>
 			<div class="recipe-details">
 				<p class="recipe-category">{{recipe.category}}</p>
 				<p class="recipe-prep-time">Prep Time: {{recipe.prepTime}}</p>

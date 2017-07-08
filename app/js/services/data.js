@@ -10,65 +10,33 @@ angular.module("recipeApp")
 	.then(callback)
 	};
 	
-	this.addIngr = function(recipes) {
-		var ingr = { 
+	this.checkUrl = function(recipes) {
+		var currentUrl = window.location.href;
+		var splitUrl = currentUrl.split("/");
+		var currentId = splitUrl[splitUrl.length - 1];
+		
+		for(var i = 0; i < recipes.length; i++) {	
+			if(recipes[i]._id === currentId) {
+				return "recipes" + recipes[i];
+			}
+		};
+	}
+	
+	this.addIngr = function(recipes) {		
+		var newIngr = { 
 			name: "", 
 			quantity: ""
 		};
-		recipes[0].ingrs.unshift(ingr);
+
+		recipes[0].ingrs.unshift(newIngr);
 	};
 	
 	this.addDirec = function(recipes) {
-		var direc =  "";
-		recipes[0].direcs.push(direc);
-	};
-	
-	//Save funtion to save ingredient being added
-	this.saveIngr = function(recipes) {
-		var queue = [];
+// 		var newDirec =  "";
 		
-		//Loop through each recipe in recipes
-		recipes.forEach(function(recipe) {
-			var request;
-			
-			//post method for recipe if there is no id and put method if there is an id
-			if(!recipe._id) {
-				request = $http.post('/api/recipes', recipe.ingrs);
-			} else {
-				request = $http.put('/api/recipes/' + recipe._id, recipe).then(function(result) {
-					recipe = result.data.recipe.ingrs;
-					return recipe;
-				});
-			};
-			
-			//Push result to queue
-			queue.push(request);
-		});
+		recipes[0].direcs.push("");
 	};
-	
-	//Save funtion to save direction step being added
-	this.saveDirec = function(recipes) {
-		var queue = [];
 		
-		//Loop through each recipe in recipes
-		recipes.forEach(function(recipe) {
-			var request;
-			
-			//post method for recipe if there is no id and put method if there is an id
-			if(!recipe._id) {
-				request = $http.post('/api/recipes', recipe.direcs);
-			} else {
-				request = $http.put('/api/recipes/' + recipe._id, recipe).then(function(result) {
-					recipe = result.data.recipe.direcs;
-					return recipe;
-				});
-			};
-			
-			//Push result to queue
-			queue.push(request);
-		});
-	};
-	
 	//Delete function to remove full recipe from the API data
 	this.deleteRecipe = function(recipe) {
 		
@@ -82,22 +50,6 @@ angular.module("recipeApp")
 	        console.log("I deleted the " + recipe.name + " ingredient!"); 
 	    });
 	};
-	
-	//Log successful removal of ingredient from ingrs array
-/*
-	this.deleteIngr = function(ingrs, $index) {
-	    ingrs.splice(ingrs[this.$index], 1);
-	};
-*/
-	
-	//Log successful removal of direction step from direcs array
-/*
-	this.deleteDirec = function(direcs, $index) {
-		direcs.splice(direcs[this.$index], 1);
-	};
-*/
-	
-	//TODO: Try making a save function for the specific input values being edited
 	
 	//Save the new or edited recipe to the API data 
 	this.saveRecipe = function(recipes) {
@@ -121,8 +73,6 @@ angular.module("recipeApp")
 			]		
 		};
 		
-		recipes.unshift(newRecipe);
-		
 		//Loop through each recipe in recipes
 		recipes.forEach(function(recipe) {
 			var request;
@@ -141,12 +91,14 @@ angular.module("recipeApp")
 			queue.push(request);
 		});
 		
+		recipes.unshift(newRecipe);
+		
 		//return queue to api
 		return $q.all(queue).then(function(results) {
-			console.log("I saved " + recipes.length + " ingredients!");
+			console.log("I saved " + recipes.length + " recipes!");
 		});
 		
-		console.log(recipes);
+		
 	};
 	
 	//COOKBOOK PAGE SEARCH

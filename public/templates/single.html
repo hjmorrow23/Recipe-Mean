@@ -1,21 +1,24 @@
-<section class="latest-recipes" ng-model="recipes[0]">
-	<article class="recipe">
+<!--	Single Recipe Section	-->
+<section class="latest-recipes" ng-model="recipes">
+	<article class="recipe" ng-repeat="recipe in recipes" ng-show="isSelected($index)">
+		
+		<!--	Recipe Main Details	-->
 		<div class="info">
 			<div>
-				<h2 class="new-recipe-name" ng-hide="editing">Name: {{recipes[0].name}}</h2>
+				<h2 class="new-recipe-name" ng-hide="editing">Name: {{recipe.name}}</h2>
 				<input class="ingr-label" ng-model="recipe.name" ng-show="editing" placeholder="Name" type="text" />
 			</div>
 			<div class="recipe-details">
 				<div>
-					<label class="recipe-category" ng-hide="editing">Category: {{recipes[0].category}}</label>
+					<label class="recipe-category" ng-hide="editing">Category: {{recipe.category}}</label>
 					<input class="ingr-label" ng-model="recipe.category" ng-show="editing" placeholder="Category" type="text" />
 				</div>
 				<div>
-					<label class="recipe-prep-time" ng-hide="editing">Prep Time: {{recipes[0].prepTime}}</label>
+					<label class="recipe-prep-time" ng-hide="editing">Prep Time: {{recipe.prepTime}}</label>
 					<input class="ingr-label" ng-model="recipe.prepTime" ng-show="editing" placeholder="Prep Time" type="text" />
 				</div>
 				<div>
-					<label class="recipe-cook-time" ng-hide="editing">Cook Time: {{recipes[0].cookTime}}</label>
+					<label class="recipe-cook-time" ng-hide="editing">Cook Time: {{recipe.cookTime}}</label>
 					<input class="ingr-label" ng-model="recipe.cookTime" ng-show="editing" placeholder="Cook Time" type="text" />
 				</div>
 			</div>
@@ -23,10 +26,12 @@
 
 <!-- 	<img class="recipe-image" src="../img/cookies.jpeg" /> -->
 <!-- 	TODO: Add a way to upload images  -->
+
+		<!--	Ingredients Section	-->
 		<h3>Ingredients</h3>
-		<a class="new-item" href="" ng-model="recipes[0].ingrs" ng-click="addIngr(recipes)" ng-show="editing">  + New</a>
-		<div ng-model="recipes[0].ingrs">
-			<ul ng-repeat=" ingr in recipes[0].ingrs ">
+		<a class="new-item" href="" ng-model="recipe.ingrs" ng-click="addIngr(recipes)" ng-show="editing">  + New</a>
+		<div ng-model="recipe.ingrs">
+			<ul ng-repeat=" ingr in recipe.ingrs ">
 				<li>
 					<label class="recipe-prep-time" ng-hide="editing">{{ingr.name}} {{ingr.quantity}}</label>
 					<input class="ingr-label" ng-model="ingr.name" ng-blur="saveIngr(recipes)" ng-show="editing" placeholder="Ingredient Name" type="text" />
@@ -35,13 +40,15 @@
 				</li>
 			</ul>
 		</div>
+		
+		<!--	Directions Section	-->
 		<h3>Instructions</h3>
-		<a href="" class="new-item" ng-model="recipes[0].direcs" ng-click="addDirec(recipes)" ng-show="editing">  + New</a>
-		<div ng-model="recipes[0].direcs">
-			<ul ng-repeat=" direc in recipes[0].direcs track by $index ">
+		<a href="" class="new-item" ng-model="recipe.direcs" ng-click="addDirec(recipes)" ng-show="editing">  + New</a>
+		<div ng-model="recipe.direcs">
+			<ul ng-repeat=" direc in recipe.direcs ">
 				<li>
-					<label class="recipe-prep-time" ng-hide="editing">{{$index +1}}. {{direc}}</label>
-					<input class="ingr-label" ng-model="direc" ng-blur="saveDirec(recipes)" ng-show="editing" type="text" />
+					<label class="recipe-prep-time" ng-hide="editing">{{$index + 1}}. {{direc}}</label>
+					<input class="ingr-label" ng-model="direc[$index]" ng-blur="saveDirec(recipes)" ng-show="editing" type="text" />
 					<button class="button" ng-click="deleteDirec(direc, $index)" ng-show="editing">Delete</button>
 				</li>
 			</ul>

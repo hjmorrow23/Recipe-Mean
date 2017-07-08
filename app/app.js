@@ -1,8 +1,18 @@
-"use strict";
+( function() {
+	"use strict";
 
 var angular = require('angular');
+var angular_route = require('angular-route');
 
-angular.module("recipeApp", []);
+angular.module("recipeApp", ['ngRoute'])
+	.config(['$routeProvider', function($routeProvider) {
+      $routeProvider
+      .when('/:id', {
+        templateUrl: '../public/templates/single.html',
+        controller: 'recipeCtrl'
+      });
+}])}
+)();
 
 require('./js/controllers/main.js');
 require('./js/services/data.js');

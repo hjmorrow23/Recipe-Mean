@@ -8,7 +8,7 @@ module.exports = {
     context: __dirname + '/app',
     entry: {
         app: './app.js',
-        vendor: ['angular']  
+        vendor: ['angular', 'angular-route']  
     },
     output: {
         path: __dirname + '/public/js',
